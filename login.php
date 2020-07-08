@@ -50,6 +50,7 @@ if(isset($_POST['submit']))
 	$run=mysqli_query($con,$qry);
 	$row=mysqli_num_rows($run);
 	$data=mysqli_fetch_assoc($run);
+	// right credential
 	if($row>0)
 	{
 		$_SESSION['id']=$data['id'];
@@ -60,6 +61,7 @@ if(isset($_POST['submit']))
 		<?php
 			
 	}
+	// invalid credential
 	else
 	{
 		?>
