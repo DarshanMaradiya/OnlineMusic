@@ -44,7 +44,7 @@ if(isset($_POST['submit']))
 
 	include('dbcon.php');
 	$uname=$_POST['name'];
-	$passwd=$_POST['password'];
+	$passwd=md5($_POST['password']);
 
 	$qry="SELECT * FROM `users` WHERE `name` LIKE '$uname' AND `password` LIKE '$passwd'";
 	$run=mysqli_query($con,$qry);

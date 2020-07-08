@@ -40,7 +40,7 @@ if(isset($_POST['submit']))
 	include('dbcon.php');
 	$uname=$_POST['name'];
 	$email=$_POST['email'];
-	$passwd=$_POST['password'];
+	$passwd=md5($_POST['password']);
 
 	$qry="INSERT INTO `users`(`name`,`email`,`password`) VALUES ('$uname','$email','$passwd')";
 	$run=mysqli_query($con,$qry);
