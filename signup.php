@@ -47,13 +47,28 @@ if(isset($_POST['submit']))
 
 	if($run)
 	{
-		
+		require('functions.php');
+		$sql = "SELECT * FROM `users` WHERE `email` = '$email'";
+		$runSql = mysqli_query($con, $sql);
+		$data = mysqli_fetch_assoc($runSql);
+		$success  = verifyMail($data['id'], $data['email'], $data['name']);
+		if($success)
+		{
 		?>
 		<script>
-			alert('Record is Saved Successfully');
+			alert('Record is Saved Successfully!\nWe have send a verification link to your Email.\nPlease verify your email address to avail more features!');
 			window.open('index.php','_self');
 		</script>
 		<?php
+		}
+		else{
+			?>
+			<script>
+			alert('Error Sending');
+			</script>
+			<?php
+		}
+
 
 	}
 	else
