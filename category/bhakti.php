@@ -52,34 +52,21 @@
 <class>
 <h2>Bhakti Songs</h2>
 </class>
-<table>
-	<tr>
-		<td>
-			<a href="../music/songinfo.php?scode=BH01&site=bhakti.php">Chai Ghata</a>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<a href="../music/songinfo.php?scode=BH02&site=bhakti.php">Door Nagari</a>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<a href="../music/songinfo.php?scode=BH03&site=bhakti.php">Kana Ne</a>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<a href="../music/songinfo.php?scode=BH04&site=bhakti.php">Sona Ne Lage Kya Thi Kaat-1</a>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<a href="../music/songinfo.php?scode=BH05&site=bhakti.php">Sona Ne Lage Kya Thi Kaat-2</a>
-		</td>
-	</tr>
-</table>
 
-
+	<table>
+		<?php include("../dbcon.php"); 
+			$sql = "SELECT * FROM `songinfo` WHERE `scode` LIKE 'BH%'";
+			$run = mysqli_query($con, $sql);
+			while($row = mysqli_fetch_array($run)){
+				?>
+				<tr>
+					<td>
+						<a href="../music/songinfo.php?scode=<?php echo $row['scode'];?>&site=Romance.php"><div><?php echo $row['sname'];?></div></a>
+					</td>
+				</tr>
+				<?php
+			}
+		?>
+	</table>
 </html>
 

@@ -52,35 +52,19 @@
 <class>
 <h2>English Songs</h2>
 </class>
-
 <table>
-	<tr>
-		<td>
-			<a href="../music/songinfo.php?scode=EN01&site=English.php">Common Denominator</a>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<a href="../music/songinfo.php?scode=EN02&site=English.php">Despacito</a>
-		</td>
-	</tr>
-	<tr>
-		<td>	
-			<a href="../music/songinfo.php?scode=EN03&site=English.php">Get Used To It</a>
-		</td>
-	</tr>
-	<tr>
-		<td>	
-			<a href="../music/songinfo.php?scode=EN04&site=English.php">Sorry</a>
-		</td>
-	</tr>
-	<tr>
-		<td>	
-			<a href="../music/songinfo.php?scode=EN05&site=English.php">Stuck In The Moment</a>
-		</td>
-	</tr>
-</table>
-
-
-
+		<?php include("../dbcon.php"); 
+			$sql = "SELECT * FROM `songinfo` WHERE `scode` LIKE 'EN%'";
+			$run = mysqli_query($con, $sql);
+			while($row = mysqli_fetch_array($run)){
+				?>
+				<tr>
+					<td>
+						<a href="../music/songinfo.php?scode=<?php echo $row['scode'];?>&site=Romance.php"><div><?php echo $row['sname'];?></div></a>
+					</td>
+				</tr>
+				<?php
+			}
+		?>
+	</table>
 </html>

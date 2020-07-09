@@ -52,31 +52,19 @@
 <class>
 <h2>Dance Songs</h2>
 </class>
-
-<table>
-	<tr>
-		<td>
-			<a href="../music/songinfo.php?scode=DA01&site=Dance.php">Baby</a>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<a href="../music/songinfo.php?scode=DA02&site=Dance.php">Cheez Badi</a>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<a href="../music/songinfo.php?scode=DA03&site=Dance.php">High Heels</a>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<a href="../music/songinfo.php?scode=DA04&site=Dance.php">Kukkad</a>
-		</td>
-	</tr>
-</table>
-
-
-
-
+	<table>
+		<?php include("../dbcon.php"); 
+			$sql = "SELECT * FROM `songinfo` WHERE `scode` LIKE 'DA%'";
+			$run = mysqli_query($con, $sql);
+			while($row = mysqli_fetch_array($run)){
+				?>
+				<tr>
+					<td>
+						<a href="../music/songinfo.php?scode=<?php echo $row['scode'];?>&site=Romance.php"><div><?php echo $row['sname'];?></div></a>
+					</td>
+				</tr>
+				<?php
+			}
+		?>
+	</table>
 </html>

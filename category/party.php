@@ -53,35 +53,19 @@
 <h2 align="left" style="margin-left:50px;">Party Songs</h2>
 </class>
 
-
 <table>
-	<tr>
-		<td>
-			<a href="../music/songinfo.php?scode=PT01&site=Party.php">Chaar Botal Vodka</a>
-		</td>
-	</tr>
-	<tr>
-		<td>	
-			<a href="../music/songinfo.php?scode=PT02&site=Party.php">G Phaad Ke</a>
-		</td>
-	</tr>
-	<tr>
-		<td>		
-			<a href="../music/songinfo.php?scode=PT03&site=Party.php">Kar Gai Chull</a>
-		</td>
-	</tr>
-	<tr>
-		<td>		
-			<a href="../music/songinfo.php?scode=PT04&site=Party.php">Tamma Tamma Again</a>
-		</td>
-	</tr>
-	<tr>
-		<td>		
-			<a href="../music/songinfo.php?scode=PT05&site=Party.php">Vele</a>
-		</td>
-	</tr>
-</table>
-
-
-
+		<?php include("../dbcon.php"); 
+			$sql = "SELECT * FROM `songinfo` WHERE `scode` LIKE 'PT%'";
+			$run = mysqli_query($con, $sql);
+			while($row = mysqli_fetch_array($run)){
+				?>
+				<tr>
+					<td>
+						<a href="../music/songinfo.php?scode=<?php echo $row['scode'];?>&site=Romance.php"><div><?php echo $row['sname'];?></div></a>
+					</td>
+				</tr>
+				<?php
+			}
+		?>
+	</table>
 </html>

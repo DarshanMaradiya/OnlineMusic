@@ -53,40 +53,19 @@
 <class>
 <h2>Romance Songs</h2>
 </class>
-
 	<table>
-		<tr>
-			<td>
-				<a href="../music/songinfo.php?scode=RM01&site=Romance.php"><div>Koi Tumsa Nahin</div></a>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<a href="../music/songinfo.php?scode=RM02&site=Romance.php"><div>Meherbaan</div></a>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<a href="../music/songinfo.php?scode=RM03&site=Romance.php"><div>Aise Na Mujhe Tum Dekho</div></a>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<a href="../music/songinfo.php?scode=RM04&site=Romance.php"><div>Main Hoon Hero Tera</div></a>
-			</td>
-		</tr>
-		<tr>	
-			<td>
-				<a href="../music/songinfo.php?scode=RM05&site=Romance.php"><div>Panchhi Bole</div></a>
-			</td>
-		</tr>
-		<tr>	
-			<td>
-				<a href="../music/songinfo.php?scode=RM06&site=Romance.php"><div>Sathiya Ye Tune Kya Kiya</div></a>
-			</td>
-		</tr>
+		<?php include("../dbcon.php"); 
+			$sql = "SELECT * FROM `songinfo` WHERE `scode` LIKE 'RM%'";
+			$run = mysqli_query($con, $sql);
+			while($row = mysqli_fetch_array($run)){
+				?>
+				<tr>
+					<td>
+						<a href="../music/songinfo.php?scode=<?php echo $row['scode'];?>&site=Romance.php"><div><?php echo $row['sname'];?></div></a>
+					</td>
+				</tr>
+				<?php
+			}
+		?>
 	</table>
-
-
-
 </html>

@@ -54,23 +54,18 @@
 </class>
 
 <table>
-	<tr>
-		<td>
-			<a href="../music/songinfo.php?scode=ED01&site=EDM.php">24K Magic</a>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<a href="../music/songinfo.php?scode=ED02&site=EDM.php">Echame La Culpa</a>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<a href="../music/songinfo.php?scode=ED03&site=EDM.php">Proxy</a>
-		</td>
-	</tr>
-</table>
-
-
-
+		<?php include("../dbcon.php"); 
+			$sql = "SELECT * FROM `songinfo` WHERE `scode` LIKE 'ED%'";
+			$run = mysqli_query($con, $sql);
+			while($row = mysqli_fetch_array($run)){
+				?>
+				<tr>
+					<td>
+						<a href="../music/songinfo.php?scode=<?php echo $row['scode'];?>&site=Romance.php"><div><?php echo $row['sname'];?></div></a>
+					</td>
+				</tr>
+				<?php
+			}
+		?>
+	</table>
 </html>
