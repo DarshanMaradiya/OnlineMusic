@@ -48,7 +48,6 @@ if(isset($_POST['submit']))
 	if($run)
 	{
 		
-		$msg = ""
 		?>
 		<script>
 			alert('Record is Saved Successfully');
