@@ -1,12 +1,18 @@
 <?php
 
-	$site = $_GET['site'];
+	if(isset($_SESSION['id']) == false)
 	{
 		?>
 		<script>
 			alert('You need to login to your acoount first!');
-			window.open('../login.php?site=music/<?php echo $site; ?>','_self');
+			window.open('../login.php','_self');
 		</script>
+		<?php
+	}
+	else
+	{
+		?>
+		<script>windows.history.go(-1);</script>
 		<?php
 	}
 

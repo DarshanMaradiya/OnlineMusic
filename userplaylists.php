@@ -60,7 +60,7 @@ if($row)
 {
 	?>
 		<h2>Your Playlists</h2><br><br>
-		<a class="manage" style="width: 10%" href="manageplaylist.php" target="_blank">Manage Playlists</a><br>
+		<a class="manage" style="width: 10%" href="manageplaylist.php">Manage Playlists</a><br>
 	<ol>
 	<?php
 	while($data=mysqli_fetch_assoc($run))

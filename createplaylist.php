@@ -48,7 +48,7 @@ if(isset($_POST['submit']))
 			?>
 			<script>
 				alert('Playlist created Successfully!Now go add some songs!');
-				window.open('<?php echo $site; ?>','_self');
+				window.history.go(-2);
 			</script>
 			<?php
 

@@ -70,7 +70,7 @@ if(isset($_GET['pid']))
 			?>
 			<script>
 				alert('Song is added');
-				window.open('../index.php','_self');
+				window.history.go(-2);
 			</script>
 			<?php
 			}
@@ -79,15 +79,56 @@ if(isset($_GET['pid']))
 			?>
 			<script>
 				alert('Failed to add');
-				window.open('../index.php','_self');
+				window.history.go(-2);
+			</script>
+			<?php
+		}
+	}	
+}
+else if(isset($_POST['submit']))
+{
+	$pname=$_POST['pname'];
+	$uid=$_SESSION['id'];
+	$qry="SELECT * FROM `playlists` WHERE `pname`='$pname' AND `uid`='$uid'";
+	$run=mysqli_query($con,$qry);
+	$row=mysqli_num_rows($run);
+	if($row)
+	{
+		?>
+		<script>
+			alert('Playlist Name already exist!choose another name!!');
+			window.history.go(-1);
+		</script>
+		<?php
+	}
+	else
+	{
+		$qry="INSERT INTO `playlists`(`uid`, `pname`) VALUES ('$uid','$pname')";
+		$run=mysqli_query($con,$qry);
+		if($run)
+		{
+			if(isset($_GET['site']))
+				$site=$_GET['site'];
+			else
+				$site="index.php";			
+			?>
+			<script>
+				
+				window.history.go(-1);
+			</script>
+			<?php
+
+		}
+		else
+		{
+			?>
+			<script>
+				alert('Failed to create playlist');
+				window.history.go(-1);
 			</script>
 			<?php
 		}
 	}
-
-
-
-	
 }
 else
 {
@@ -109,6 +150,13 @@ else
 				echo $data['pname'];
 				?></a><?php
 			}
+			?>
+			<!-- create playlist -->
+			<form action="addtoplaylist.php" method="post" class="textbox">
+			<input class="button"  type="text" name="pname" required placeholder="Enter name of the playlist" >
+			<input type="submit" name="submit" value="Create">
+			</form>
+			<?php
 	}
 	else
 	{

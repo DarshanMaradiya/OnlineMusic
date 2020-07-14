@@ -107,7 +107,7 @@ session_start();
 if(isset($_SESSION['id']))
 {
 	?>
-		<a href="addtoplaylist.php?scode=<?php echo $scode; ?>&site=<?php echo $link;?>"><!-- <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 50px;" title="Add to Playlist"></i> -->Add to playlist</a>
+		<a href="addtoplaylist.php?scode=<?php echo $scode; ?>"><!-- <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 50px;" title="Add to Playlist"></i> -->Add to playlist</a>
 		<a href="<?php echo $dlink;?>" download><i class="fa fa-arrow-circle-o-down" aria-hidden="true" style="font-size: 50px;" title="Download"></i>download</a>
 	<?php
 }
@@ -115,8 +115,8 @@ else
 {
 	$link = "songinfo.php?scode=".$scode;
 	?>
-		<a href="towardslogin.php?scode=<?php echo $scode; ?>&site=<?php echo $link;?>"><!-- <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 50px;" title="Add to Playlist"></i> -->Add to playlist</a><br>
-		<a href="towardslogin.php?site=<?php echo $link;?>"><!-- <i class="fa fa-arrow-circle-o-down" aria-hidden="true" style="font-size: 50px;" title="Download"></i> -->download</a>
+		<a href="../login.php?scode=<?php echo $scode; ?>"><!-- <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 50px;" title="Add to Playlist"></i> -->Add to playlist</a><br>
+		<a href="../login.php" onclick="alert('You need to login to your acoount first!');"><!-- <i class="fa fa-arrow-circle-o-down" aria-hidden="true" style="font-size: 50px;" title="Download"></i> -->download</a>
 	<?php
 }
 ?>

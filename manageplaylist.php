@@ -59,7 +59,7 @@ if(isset($_GET['delete']))
 		?>
 		<script>
 			alert('Playlist deleted successfully!');
-			window.close();
+			window.history.go(-2);
 		</script>
 		<?php
 	}
@@ -68,7 +68,7 @@ if(isset($_GET['delete']))
 		?>
 		<script>
 			alert('Failed to delete playlist!!');
-			window.open('userplaylists.php','_self');
+			window.history.go(-2);
 		</script>
 		<?php
 	}
@@ -96,7 +96,7 @@ else if(isset($_GET['rename']))
 			?>
 			<script>
 				alert('Playist renamed Successfully!!');
-				window.open('userplaylists.php','_self');
+				window.history.go(-2);
 			</script>
 			<?php
 		}
@@ -105,7 +105,7 @@ else if(isset($_GET['rename']))
 			?>
 			<script>
 				alert('Failed to rename playlist!!');
-				window.open('userplaylists.php','_self');
+				window.history.go(-2);
 			</script>
 			<?php
 		}
