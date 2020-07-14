@@ -1,4 +1,7 @@
 <!DOCTYPE HTML>
+<?php
+$emailError = "";
+?>
 <html>
 <head>
 	<title>Signup</title>
@@ -17,7 +20,21 @@
 <div>
 	<p class="name-help">Please enter your first and last name.</p>
 </div>
-<input class="email" placeholder="Email" type="email" name="email" pattern=".+@gmail.com" required>
+<input onchange="validateEmail()" id="mail" class="email" placeholder="Email" type="email" name="email" required>
+<?php echo $emailError;?>
+<script type="text/javascript">
+	function validateEmail(){
+		var emailField = document.getElementById("mail");
+		emailField.value = emailField.value.trim();
+
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+        if (reg.test(emailField.value) == false) 
+        {
+            <?php $emailError="Enter valid email";?>
+        }
+	}
+</script>
 <div>
       <p class="email-help">Please enter your current email address.</p>
 </div>
@@ -41,6 +58,9 @@ if(isset($_POST['submit']))
 	$uname=$_POST['name'];
 	$email=$_POST['email'];
 	$passwd=md5($_POST['password']);
+
+
+
 
 	$qry="INSERT INTO `users`(`name`,`email`,`password`) VALUES ('$uname','$email','$passwd')";
 	$run=mysqli_query($con,$qry);

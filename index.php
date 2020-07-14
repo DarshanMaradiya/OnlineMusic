@@ -110,10 +110,22 @@
 
 	<center>
 		<form action="search.php" method="post" class="textbox">
-			<input class="button" type="text" name="stext" placeholder="Search" required>
+			<input onchange="validateKeyword()" id="searchBox" class="button" type="text" name="stext" placeholder="Search" required>
 			
 		</form>		 		 			 
 	</center>
+	<script type="text/javascript">
+		function validateKeyword(){
+			console.log("is running");
+			var btn = document.getElementById('searchBox');
+			btn.value = btn.value.trim();
+			if(btn.value.length == 1)
+			{
+				alert('Enter some valid keyword!!');
+				btn.value = "";
+			}
+		}
+	</script>
 
 	<h1 align="center" style="color: black;">Have a great day with Music</h1>
 	<table align = 'center' style = 'margin-top:10px; padding-right: 150px' cellpadding="60">
