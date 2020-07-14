@@ -55,33 +55,80 @@ $songs=explode("_", $data['list']);
 			font-weight: bold;
 		}
 	</style> -->
+	<style>
+        #playlist{
+            list-style: none;
+        }
+        #playlist li a{
+            color:black;
+            text-decoration: none;
+        }
+        #playlist .current-song a{
+            color:blue;
+        }
+    </style>
 </head>
 <body>
 <?php
 if($row)
 	{
-		?><h2>
-			<?php echo $data['pname'];?>
-			</h2>
+		?><h2><?php echo $data['pname'];?></h2>
 			<br><a class="manage" style="width: 20%;" href="editplaylist.php?pid=<?php echo $pid; ?>">Edit playlist</a>
 			<br><br>
-			<ol>
-			<?php
-			for ($i=0; $i < count($songs)-1; $i++) {
+			<audio src="" controls id="audioPlayer" >
+	        	Sorry, your browser doesn't support html5!
+    		</audio>
+    		<ul id="playlist">
+				<?php
+				for ($i=0; $i < count($songs)-1; $i++) {
 
-				$qry="SELECT * FROM `songinfo` WHERE `scode`='$songs[$i]'";
-				$run=mysqli_query($con,$qry);
-				$data=mysqli_fetch_assoc($run);
-
-				?><li><a href="music/songinfo.php?scode=<?php echo $data['scode'];?>&site=../showplaylist.php"><?php
-				echo "".$data['sname'];
-				?></a></li><?php
-			}
-			?>
-			</ol>
+					$qry="SELECT * FROM `songinfo` WHERE `scode`='$songs[$i]'";
+					$run=mysqli_query($con,$qry);
+					$row=mysqli_fetch_assoc($run); ?>
+	                <li>
+	                    <?php
+	                    $songname = $row['sname'];
+	                    $songname = str_replace(" ", "%20", $songname);
+	                    $foldername = substr($row['scode'], 0, 2);
+	                    $songname = "music/".$foldername."/".$songname.".mp3";
+	                    ?>
+	                    <a href="<?php echo $songname; ?>"><?php echo $row['sname'];?></a>  
+	                </li>
+	                <?php
+				}
+				?>
+			</ul>
 			<?php
 	}
 
 ?>
+	<a href="#" onclick="playlist.prevTrack();">Prev Track</a>
+    <a href="#" onclick="playlist.nextTrack();">Next Track</a>
+    <a href="#" onclick="playlist.toggleShuffle();">Toggle Shuffle</a>
+    <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
+    <script src="audioPlayer.js"></script>
+    <script>
+        
+        /*
+    Default constructor configuration:
+        autoplay: false,
+        shuffle: false,
+        loop: false,
+        playerId: "audioPlayer",
+        playlistId: "playlist",
+        currentClass: "current-song"
+        
+        
+*/
+        
+        // loads the audio player
+        var config = {
+            autoplay: true, 
+            loop: true,
+            shuffle: true
+        };
+        var playlist = new AudioPlaylist();
+        
+    </script>
 </body>
 </html>
