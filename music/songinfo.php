@@ -89,13 +89,7 @@ else
 	<?php
 }
 
-$fcode=substr($scode,0,2);
-if ($fcode=="BH") $folder="bhakti";
-elseif ($fcode=="DA") $folder="dance";
-elseif ($fcode=="ED") $folder="edm";
-elseif ($fcode=="EN") $folder="english";
-elseif ($fcode=="PT") $folder="party";
-elseif ($fcode=="RM") $folder="romance";
+$folder=substr($scode,0,2);
 
 $dlink=$folder."/".$data['sname'].".mp3";
 $fname=$data['sname'].".mp3";
