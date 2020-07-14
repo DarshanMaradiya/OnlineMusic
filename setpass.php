@@ -41,23 +41,20 @@ if(isset($_GET['id']))
 			<div>
 			      <p class="pass-help">Please re-enter your password.</p>
 			</div>
-			<input class="submit" type="submit" id="submit" name="submit" value="Reset" disabled="disabled" required>
+			<input class="submit" type="submit" id="submit" name="submit" value="Reset" required>
 		</form>
 	</div>
 	<script type="text/javascript">
 		function matchPassword()
 		{
 			console.log("runned");
-			var pass = document.getElementsByClassName("pass");
-			if(pass[0].value == pass[1].value)
-			{
-				document.getElementById('submit').disabled = false;
-			}
-			else
-			{
-				document.getElementById('submit').disabled = true;
-				alert("Passwords are not matching!!");
-			}
+	  		var pass = document.getElementsByClassName('pass');
+
+	        // If Not same return False.     
+	        if (pass[0].value != pass[1].value) {
+	            alert ("Passwords did not match!!\nConfirm again.");
+	            pass[1].value = "";
+	        } 
 		}
 	</script>
 	<?php

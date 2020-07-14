@@ -20,8 +20,24 @@ $emailError = "";
 <div>
 	<p class="name-help">Please enter your first and last name.</p>
 </div>
-<input onchange="validateEmail()" id="mail" class="email" placeholder="Email" type="email" name="email" required>
-<?php echo $emailError;?>
+<input onblur="validateEmail()" id="mail" class="email" placeholder="Email" type="email" name="email" required>
+
+<div>
+      <p class="email-help">Please enter your current email address.</p>
+</div>
+<input class="pass" placeholder="Password" type="password" name="password" required>
+<div>
+      <p class="pass-help">Please enter your password.</p>
+</div>
+<input class="pass"  onblur="matchPassword();" placeholder="Confirm password" type="password" name="confirmpass" required>
+
+<div>
+      <p class="pass-help">Please confirm your password.</p>
+</div>
+<input class="submit" type="submit" name="submit" value="Sign Up" required><br>
+
+</form>
+</div>
 <script type="text/javascript">
 	function validateEmail(){
 		var emailField = document.getElementById("mail");
@@ -31,21 +47,22 @@ $emailError = "";
 
         if (reg.test(emailField.value) == false) 
         {
-            <?php $emailError="Enter valid email";?>
+            alert("Enter valid email");
         }
 	}
-</script>
-<div>
-      <p class="email-help">Please enter your current email address.</p>
-</div>
-<input class="pass" placeholder="Password" type="password" name="password" required>
-<div>
-      <p class="pass-help">Please enter your password.</p>
-</div>
-<input class="submit" type="submit" name="submit" value="Sign Up" required><br>
+	
+	function matchPassword()
+	{
+		console.log("runned");
+  		var pass = document.getElementsByClassName('pass');
 
-</form>
-</div>
+        // If Not same return False.     
+        if (pass[0].value != pass[1].value) {
+            alert ("Passwords did not match!!\nConfirm again.");
+            pass[1].value = "";
+        } 
+	}
+</script>
 </body>
 </html>
 
@@ -53,52 +70,84 @@ $emailError = "";
 
 if(isset($_POST['submit']))
 {
-
 	include('dbcon.php');
-	$uname=$_POST['name'];
+	$uname=strtolower($_POST['name']);
 	$email=$_POST['email'];
 	$passwd=md5($_POST['password']);
 
+	$allCorrect = true;
 
+	$qry = "SELECT * FROM `users` WHERE `name` = '$uname'";
+	$run = mysqli_query($con, $qry);
+	$row = mysqli_num_rows($run);
 
-
-	$qry="INSERT INTO `users`(`name`,`email`,`password`) VALUES ('$uname','$email','$passwd')";
-	$run=mysqli_query($con,$qry);
-
-	if($run)
+	if($row > 0)
 	{
-		require('functions.php');
-		$sql = "SELECT * FROM `users` WHERE `email` = '$email'";
-		$runSql = mysqli_query($con, $sql);
-		$data = mysqli_fetch_assoc($runSql);
-		$success  = verifyMail($data['id'], $data['email'], $data['name']);
-		if($success)
-		{
+		$allCorrect = false;
 		?>
-		<script>
-			alert('Record is Saved Successfully!\nWe have send a verification link to your Email.\nPlease verify your email address to avail more features!');
-			window.open('index.php','_self');
-		</script>
+			<script type="text/javascript">
+				alert('Username already Exists!! try different one!');
+				window.history.go(-1);
+			</script>
 		<?php
-		}
-		else{
+	} 
+
+	$qry = "SELECT * FROM `users` WHERE `email` = '$email'";
+	$run = mysqli_query($con, $qry);
+	$row = mysqli_num_rows($run);
+
+	if($row > 0)
+	{
+		$allCorrect = false;
+		?>
+			<script type="text/javascript">
+				alert('Entered email-id is already registered!!');
+				window.history.go(-1);
+			</script>
+		<?php
+	}
+
+	if($allCorrect)
+	{
+		$qry="INSERT INTO `users`(`name`,`email`,`password`) VALUES ('$uname','$email','$passwd')";
+		$run=mysqli_query($con,$qry);
+
+		if($run)
+		{
+			require('functions.php');
+			$sql = "SELECT * FROM `users` WHERE `email` = '$email'";
+			$runSql = mysqli_query($con, $sql);
+			$data = mysqli_fetch_assoc($runSql);
+			$success  = verifyMail($data['id'], $data['email'], $data['name']);
+			if($success)
+			{
 			?>
 			<script>
-			alert('Error Sending');
+				alert('Record is Saved Successfully!\nWe have send a verification link to your Email.\nPlease verify your email address to avail more features!');
+			</script>
+			<?php
+			}
+			else{
+				?>
+				<script>
+				alert('Error Sending');
+				</script>
+				<?php
+			}
+			?>
+				<script type="text/javascript">
+					window.history.go(-2);
+				</script>
+			<?php
+		}
+		else
+		{
+			?>
+			<script>
+				alert('Failed to save record');
 			</script>
 			<?php
 		}
-
-
 	}
-	else
-	{
-		?>
-		<script>
-			alert('Failed to save record');
-		</script>
-		<?php
-	}
-
 }
 ?>

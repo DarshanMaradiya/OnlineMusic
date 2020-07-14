@@ -106,11 +106,10 @@ $run=mysqli_query($con,$qry);
 
 if($run)
 	{
-		
 		?>
 		<script>
 			alert('Playlist updated');
-			window.open('showplaylist.php?pid=<?php echo $pid;?>','_self');
+			window.history.go(-2);
 		</script>
 		<?php
 
@@ -120,6 +119,7 @@ if($run)
 		?>
 		<script>
 			alert('Failed to update playlist');
+			window.history.go(-2);
 		</script>
 		<?php
 	}
@@ -133,7 +133,6 @@ else
 {
 $qry="SELECT * FROM `playlists` WHERE `pid`='$pid'";
 $run=mysqli_query($con,$qry);
-$row=mysqli_num_rows($run);
 $data=mysqli_fetch_assoc($run);
 $songs=explode("_", $data['list']);
 ?>
@@ -141,7 +140,7 @@ $songs=explode("_", $data['list']);
 </head>
 <body>
 <?php
-if($row)
+if($run)
 	{
 		?><h2>
 			<?php echo $data['pname'];?>
@@ -157,7 +156,7 @@ if($row)
 				?><br>
 				<label class="container"><input type="checkbox" name="check_list[]" value="<?php echo $data['scode'].'_';?>">
 
-				<a href="music/songinfo.php?scode=<?php echo $data['scode'];?>&site=../showplaylist.php">
+				<a href="music/songinfo.php?scode=<?php echo $data['scode'];?>">
 					<span class="checkmark"></span> <?php
 			?> <?php	echo "".$data['sname']; ?><?php
 				?></a></label><?php

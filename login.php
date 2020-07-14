@@ -39,6 +39,7 @@ else
 			</div>
 			<input class="submit" type="submit" name="submit" value="Login" required><br>
 			<a style="color: black; text-decoration: none;" class="submit" href="forgotpassword.php"> Forgot password?</a><br>
+			<a style="color: black; text-decoration: none;" class="submit" href="signup.php"> SignUp</a><br>
 		</form>
 	</div>
 
@@ -48,7 +49,7 @@ else
 	{
 
 		include('dbcon.php');
-		$uname=$_POST['name'];
+		$uname=strtolower($_POST['name']);
 		$passwd=md5($_POST['password']);
 
 		$qry="SELECT * FROM `users` WHERE `name` LIKE '$uname' AND `password` LIKE '$passwd'";
