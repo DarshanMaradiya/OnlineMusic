@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2020 at 07:53 PM
+-- Generation Time: Jul 15, 2020 at 05:50 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.31
 
@@ -24,6 +24,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `favourites`
+--
+
+CREATE TABLE `favourites` (
+  `uid` int(5) NOT NULL,
+  `favlist` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `favourites`
+--
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `playlists`
 --
 
@@ -37,11 +52,6 @@ CREATE TABLE `playlists` (
 --
 -- Dumping data for table `playlists`
 --
-
-INSERT INTO `playlists` (`pid`, `uid`, `pname`, `list`) VALUES
-(1, 1, 'First', 'PT01BH01_'),
-(3, 2, 'Playlist1', 'PT04_'),
-(4, 3, 'Vikrant', '');
 
 -- --------------------------------------------------------
 
@@ -107,8 +117,18 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `users`
+--
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `favourites`
+--
+ALTER TABLE `favourites`
+  ADD PRIMARY KEY (`uid`);
 
 --
 -- Indexes for table `playlists`
@@ -136,13 +156,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `playlists`
 --
 ALTER TABLE `playlists`
-  MODIFY `pid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `pid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
