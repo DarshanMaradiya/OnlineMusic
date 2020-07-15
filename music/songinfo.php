@@ -108,6 +108,19 @@ if(isset($_SESSION['id']))
 {
 	?>
 		<a href="addtoplaylist.php?scode=<?php echo $scode; ?>"><!-- <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 50px;" title="Add to Playlist"></i> -->Add to playlist</a>
+
+	<?php
+		$uid = $_SESSION['id'];
+		$qry = "SELECT * FROM `favourites` WHERE `uid` = '$uid'";
+		$run = mysqli_query($con, $qry);
+		$data = mysqli_fetch_assoc($run);
+
+		$fav = 1;
+		if(strpos($data['favlist'], $scode) === false) $fav = 0;
+	?>
+		<a href="addtofavourites.php?scode=<?php echo $scode; ?>" id="Fav"><!-- <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 50px;" title="Add to favourites"></i> -->Add to favourites</a>
+		<a href="removefromfavourites.php?scode=<?php echo $scode; ?>" id="removeFav"><!-- <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 50px;" title="Add to favourites"></i> -->Remove from favourites</a>
+
 		<a href="<?php echo $dlink;?>" download><i class="fa fa-arrow-circle-o-down" aria-hidden="true" style="font-size: 50px;" title="Download"></i>download</a>
 	<?php
 }
@@ -115,11 +128,36 @@ else
 {
 	$link = "songinfo.php?scode=".$scode;
 	?>
-		<a href="../login.php?scode=<?php echo $scode; ?>"><!-- <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 50px;" title="Add to Playlist"></i> -->Add to playlist</a><br>
+		<a href="../login.php?"><!-- <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 50px;" title="Add to Playlist"></i> -->Add to playlist</a><br>
+		<a href="../login.php?"><!-- <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 50px;" title="Add to Favorites"></i> -->Add to favourites</a><br>
 		<a href="../login.php" onclick="alert('You need to login to your acoount first!');"><!-- <i class="fa fa-arrow-circle-o-down" aria-hidden="true" style="font-size: 50px;" title="Download"></i> -->download</a>
 	<?php
 }
 ?>
+
+<script type="text/javascript">
+
+	toggleFavourite();
+
+	function toggleFavourite()
+	{
+		var isFav = <?php echo $fav;?>;
+		var Fav = document.getElementById('Fav');
+		var RemoveFav = document.getElementById('removeFav');
+		if(isFav)
+		{
+			Fav.style.display = 'none';
+			RemoveFav.style.display = 'inline-block';
+		}
+		else
+		{
+			Fav.style.display = 'inline-block';
+			RemoveFav.style.display = 'none';
+		}
+	}
+</script>
+
+
 <!-- <a href="download.php?link=<?php echo $dlink;?>& fname=<?php echo $fname; ?>" target="_blank">download file</a> -->
 </body>
 </html>

@@ -89,9 +89,11 @@
   					<button onclick="myFunction()" class="dropbtn">Menu</button>
   					<div id="myDropdown" class="dropdown-content">
 						
+						<a href="favourites.php">Favorites</a>
 						<a href="createplaylist.php">Create a playlist</a>
 						<a href="userplaylists.php">Your playlists</a>
 						<a href="logout.php">Log out</a>
+
 					</div>
 				</div>
 				
