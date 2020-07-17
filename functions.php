@@ -24,13 +24,13 @@ function verifyMail($id, $mailAddress, $name = "")
 	    $mail->isSMTP();                                            // Send using SMTP
 	    $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
 	    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-	    $mail->Username   = 'something@gmail.com';                     // SMTP username
-	    $mail->Password   = 'password';                               // SMTP password
+	    $mail->Username   = 'foreverlearners1234@gmail.com';                     // SMTP username
+	    $mail->Password   = 'dontaskdonttell';                               // SMTP password
 	    $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
 	    $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
 	    //Recipients
-	    $mail->setFrom('Google@gmail.com', 'OnlineMusic');
+	    $mail->setFrom('foreverlearners1234@gmail.com', 'OnlineMusic');
 	    $mail->addAddress($mailAddress, "simple");	// Add a recipient
 	    // $mail->addCC();
 	    // $mail->addBCC();     
@@ -60,7 +60,7 @@ function verifyMail($id, $mailAddress, $name = "")
 	}
 }
 
-function resetPasswordMail($id, $mailAddress, $name = "")
+function resetPasswordMail($id, $mailAddress, $name = "", $otp)
 {
 	require('PHPMailer/Exception.php');
 	require('PHPMailer/PHPMailer.php');
@@ -76,14 +76,14 @@ function resetPasswordMail($id, $mailAddress, $name = "")
 	    $mail->isSMTP();                                            // Send using SMTP
 	    $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
 	    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-	    $mail->Username   = 'something@gmail.com';                     // SMTP username
-	    $mail->Password   = 'password';                               // SMTP password
+	    $mail->Username   = 'foreverlearners1234@gmail.com';                     // SMTP username
+	    $mail->Password   = 'dontaskdonttell';                               // SMTP password
 
 	    $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
 	    $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
 	    //Recipients
-	    $mail->setFrom('Google@gmail.com', 'OnlineMusic');
+	    $mail->setFrom('foreverlearners1234@gmail.com', 'OnlineMusic');
 	    $mail->addAddress($mailAddress, "simple");	// Add a recipient
 	    // $mail->addCC();
 	    // $mail->addBCC();     
@@ -97,7 +97,7 @@ function resetPasswordMail($id, $mailAddress, $name = "")
 	    // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
 	    $encrypted_id = Encryption::encrypt_id($id);
-	    $msg = "Click <a href=\"localhost/onlinemusic/setpass.php?id=".$encrypted_id."\" style=\"color:red;\">here</a> to reset your password!";
+	    $msg = $otp."<br>Enter this number";
 	    // Content
 	    $mail->isHTML(true);      // Set email format to HTML
 	    $mail->Subject = 'Reset Password of Your OnlineMusic Account';

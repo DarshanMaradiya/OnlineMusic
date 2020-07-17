@@ -78,7 +78,6 @@ else
 	{
 		?>
 		<script type="text/javascript">
-			alert('This is song is added to your favourites!');
 			window.history.go(-1);
 		</script>
 		<?php

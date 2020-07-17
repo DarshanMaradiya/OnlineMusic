@@ -1,0 +1,10 @@
+#favourites{
+    list-style: none;
+}
+#favourites li a{
+    color:black;
+    text-decoration: none;
+}
+#favourites .current-song a{
+    color:blue;
+}

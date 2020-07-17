@@ -136,7 +136,7 @@ $run=mysqli_query($con,$qry);
 $data=mysqli_fetch_assoc($run);
 $songs=explode("_", $data['list']);
 ?>
-	<title>Playlist</title>
+<title>Playlist</title>
 </head>
 <body>
 <?php

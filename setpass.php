@@ -1,49 +1,19 @@
-<?php
-use Encryption\Encryption;
-
-require('SupportClasses/Encryption.php');
-
-include('dbcon.php');
-?>
-
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>Forgot Password</title>
-	<!-- <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
-	<link rel="stylesheet" type="text/css" href="css.css"> -->
+	<title>Forgot password</title>
 </head>
 <body>
-<?php
-
-if(isset($_GET['id']))
-{
-	$encrypted_id = $_GET['id'];
-	$decrypted_id = Encryption::decrypt_id($encrypted_id);
-
-	$sql = "SELECT * FROM `users` WHERE `id` = '$decrypted_id'";
-	$runSql = mysqli_query($con, $sql);
-
-	if($runSql)
-	{
-	
+	<?php
+		if(isset($_SESSION['uid'])){
+			header("Location: login.php");
+		}
 	?>
-	<div class="wrapper">
-	<h1>CHANGE PASSWORD</h1>
-		<form action="setpass.php?id=<?php echo $encrypted_id;?>" method="post">
-			<input class="pass" placeholder="New password" type="password" name="newpass" required>
-			<div>
-			      <p class="pass-help">Please enter new password.</p>
-			</div>
-			<input class="pass" onblur="matchPassword();" placeholder="Re-enter new password" type="password" name="renewpass" required>
-			
-			<div>
-			      <p class="pass-help">Please re-enter your password.</p>
-			</div>
-			<input class="submit" type="submit" id="submit" name="submit" value="Reset" required>
-		</form>
-	</div>
+	<form action="" method="post">
+		<input class="pass" placeholder="Password" type="password" name="password" required>
+		<input class="pass"  onblur="matchPassword();" placeholder="Confirm password" type="password" name="confirmpass" required>
+		<input type="submit" name="submit" value="Reset">
+	</form>
 	<script type="text/javascript">
 		function matchPassword()
 		{
@@ -58,36 +28,19 @@ if(isset($_GET['id']))
 		}
 	</script>
 	<?php
-
-	}
-	else
-	{
-		echo "Something went wrong!!";
-	}
-}
-
-if(isset($_POST['submit']))
-{
-	
-	$encrypted_id = $_GET['id'];
-	$id = Encryption::decrypt_id($encrypted_id);
-	
-	$newpass=md5($_POST['newpass']);
-	$renewpass=$_POST['renewpass'];
-	
-	$sql="UPDATE `users` SET `password`='$newpass' WHERE `id`='$id'";
-	$run=mysqli_query($con,$sql);
-	if($run)
-	{
-		?>
-		<script>
-			alert('Password is reset successfully!');
-			window.close();
-		</script>
-		<?php
-	}
-}
-?>
-
+		if(isset($_POST['submit'])){
+			session_start();
+			$uid = $_SESSION['uid'];
+			include('dbcon.php');
+			$passwd=md5($_POST['password']);
+			$qry = "UPDATE `users` SET `password`='$passwd' WHERE `id`='$uid'";
+			$run = mysqli_query($con, $qry);
+			session_unset();
+			?>
+			<script type="text/javascript">alert("Password reset successfully.");</script>
+			<?php
+			header("Location: login.php");
+		}
+	?>
 </body>
 </html>

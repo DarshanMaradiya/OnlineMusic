@@ -71,6 +71,19 @@ $emailError = "";
 if(isset($_POST['submit']))
 {
 	include('dbcon.php');
+	$qry = "SELECT `id` FROM `users`";
+	$run = mysqli_query($con, $qry);
+	$arr = array();
+	while($row = mysqli_fetch_array($run)){
+		array_push($arr, $row[0]);
+	}
+	sort($arr);
+	$i=1;
+	for($i=1; $i<=count($arr); $i++){
+		if($arr[$i-1]!=$i){
+			break;
+		}
+	}
 	$uname=strtolower($_POST['name']);
 	$email=$_POST['email'];
 	$passwd=md5($_POST['password']);
@@ -109,7 +122,7 @@ if(isset($_POST['submit']))
 
 	if($allCorrect)
 	{
-		$qry="INSERT INTO `users`(`name`,`email`,`password`) VALUES ('$uname','$email','$passwd')";
+		$qry = "INSERT INTO `users`(`id`, `name`, `password`, `email`) VALUES ('$i', '$uname', '$passwd', '$email')";
 		$run=mysqli_query($con,$qry);
 
 		if($run)
@@ -130,7 +143,7 @@ if(isset($_POST['submit']))
 			else{
 				?>
 				<script>
-				alert('Error Sending');
+				alert('Error sending mail');
 				</script>
 				<?php
 			}

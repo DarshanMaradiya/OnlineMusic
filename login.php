@@ -62,12 +62,10 @@ else
 			$_SESSION['id']=$data['id'];
 			?>
 			<script>
-				
 				console.log("runned");
-				window.history.go(-2);
 			</script>
 			<?php
-				
+			header("Location: index.php");
 		}
 		// invalid credential
 		else

@@ -43,16 +43,21 @@ require('functions.php');
 		if($row==1)
 		{
 			$data = mysqli_fetch_assoc($run);
-
-			$success  = resetPasswordMail($data['id'], $data['email'], $data['name']);
+			$otp = rand(100001, 999999);
+			$success  = resetPasswordMail($data['id'], $data['email'], $data['name'], $otp);
 			if($success)
 			{
 				?>
 				<script>
 					alert('We have send a link to reset your password on your Email.\nLink is not yet temporarily active!!!!');
-					window.open('index.php','_self');
+					// window.open('index.php','_self');
 				</script>
 				<?php
+				session_start();
+				$uid = $data['id'];
+				$_SESSION['uid']=$uid;
+				$_SESSION['otp']=$otp;
+				header("Location: verifyotp.php");
 			}
 			else
 			{

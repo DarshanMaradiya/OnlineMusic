@@ -6,63 +6,56 @@ include('dbcon.php');
 <!DOCTYPE html>
 <html>
 <head>
-<title>favourites</title>
-	<style>
-        #favourites{
-            list-style: none;
-        }
-        #favourites li a{
-            color:black;
-            text-decoration: none;
-        }
-        #favourites .current-song a{
-            color:blue;
-        }
-    </style>
+<title>Favourites</title>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/		css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css\cssForFavourite.css">
 </head>
-
-<?php
-$uid=$_SESSION['id'];
-$qry = "SELECT `favlist` FROM `favourites` WHERE `uid` = '$uid'";
-$run = mysqli_query($con, $qry);
-$row = mysqli_num_rows($run);
-$data = mysqli_fetch_assoc($run);
-$songs=explode("_", $data['favlist']);
-
-if($row)
-{
-	?>
-	<h2>favourites</h2>
-	<br>
-		<audio src="" controls id="audioPlayer" >
-	        	Sorry, your browser doesn't support html5!
-    	</audio>
-   		<ul id="favourites">
-		<?php
-			for ($i=0; $i < count($songs)-1; $i++) {
-				$qry="SELECT * FROM `songinfo` WHERE `scode`='$songs[$i]'";
-				$run=mysqli_query($con,$qry);
-				$row=mysqli_fetch_assoc($run); ?>
-	            <li>
-	                <?php
-	                $songname = $row['sname'];
-	                $songname = str_replace(" ", "%20", $songname);
-	                $foldername = substr($row['scode'], 0, 2);
-	                $songname = "music/".$foldername."/".$songname.".mp3";
-	                ?>
-	                <a href="<?php echo $songname; ?>"><?php echo $row['sname'];?></a>  
-	            </li>
-	            <?php
-			}
+<body>
+	<h2>Favourites</h2>
+	<br><a class="manage" style="width: 20%;" href="managefav.php">Edit playlist</a>
+	<br><br>
+	<?php
+		$uid=$_SESSION['id'];
+		$qry = "SELECT `favlist` FROM `favourites` WHERE `uid` = '$uid'";
+		$run = mysqli_query($con, $qry);
+		$row = mysqli_num_rows($run);
+		$data = mysqli_fetch_assoc($run);
+		$songs=explode("_", $data['favlist']);
+		if($row)
+		{
 			?>
-		</ul>
-		<?php
-}
-else echo "Error";
-?>
-	<a href="#" onclick="favourites.prevTrack();">Prev Track</a>
-    <a href="#" onclick="favourites.nextTrack();">Next Track</a>
-    <a href="#" onclick="favourites.toggleShuffle();">Toggle Shuffle</a>
+			<br>
+				<audio src="" controls id="audioPlayer" >
+			        	Sorry, your browser doesn't support html5!
+		    	</audio>
+		   		<ul id="favourites">
+				<?php
+					for ($i=0; $i < count($songs)-1; $i++) {
+						$qry="SELECT * FROM `songinfo` WHERE `scode`='$songs[$i]'";
+						$run=mysqli_query($con,$qry);
+						$row=mysqli_fetch_assoc($run); ?>
+			            <li>
+			                <?php
+			                $songname = $row['sname'];
+			                $songname = str_replace(" ", "%20", $songname);
+			                $foldername = substr($row['scode'], 0, 2);
+			                $songname = "music/".$foldername."/".$songname.".mp3";
+			                ?>
+			                <a href="<?php echo $songname; ?>"><?php echo $row['sname'];?></a>
+			            </li>
+			            <?php
+					}
+					?>
+					</ul>
+					<a href="#" onclick="favourites.prevTrack();">Prev Track</a>
+    				<a href="#" onclick="favourites.nextTrack();">Next Track</a>
+    				<a href="#" onclick="favourites.toggleShuffle();">Toggle Shuffle</a>
+				<?php
+		}
+		else echo "No favourites";
+	?>
     <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
     <script src="audioPlayer.js"></script>
     <script>
@@ -83,3 +76,4 @@ else echo "Error";
         };
         var favourites = new AudioPlaylist({playlistId : "favourites"});   
     </script>
+</body>
