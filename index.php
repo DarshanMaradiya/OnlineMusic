@@ -12,8 +12,14 @@
 <!DOCTYPE HTML>
 <html lang="en_US">
 <head>
-	<meta charset="UTF-8">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Music Player</title>
+	<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css"
+		/>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/?family=Roboto&display=swap"/>
+	<link rel="stylesheet" href="assets/css/styles.css" />
+	<link rel="stylesheet" href="assets/css/sidebar.css" />
 	<!-- <link rel="stylesheet" type="text/css" href="css.css">
 	<script type="text/javascript" src="js.js"></script>
 	<style type="text/css">
@@ -74,7 +80,6 @@
 	</style> -->
 </head>
 <body>
-
 	<?php
 		if($logged_in)
 		{
@@ -84,55 +89,85 @@
 			$run=mysqli_query($con,$sql);
 			$data=mysqli_fetch_assoc($run);
 			?>
-			<h3 style="color: black; text-align: center;">Welcome, <?php echo $data['name']; ?>!</h4>
-				<div class="dropdown">
-  					<button onclick="myFunction()" class="dropbtn">Menu</button>
-  					<div id="myDropdown" class="dropdown-content">
-						
-						<a href="favourites.php">Favorites</a>
-						<a href="createplaylist.php">Create a playlist</a>
-						<a href="userplaylists.php">Your playlists</a>
-						<a href="logout.php">Log out</a>
-
-					</div>
-				</div>
-				
+			<div id="profile" class="sidebar">
+				<aside class="sidebar">
+					<nav>
+						<ul class="sidebar__nav">
+							<li>
+								<a href="account.php" class="sidebar__nav__link">
+									<i class="mdi mdi-account-circle"></i>
+									<span class="sidebar__nav__text"><?php echo $data['name']; ?></span>
+								</a>
+							</li>
+							<li>
+								<a href="favourites.php" class="sidebar__nav__link">
+									<i class="mdi mdi-heart"></i>
+									<span class="sidebar__nav__text">Favourites</span>
+								</a>
+							</li>
+							<li>
+								<a href="userplaylists.php" class="sidebar__nav__link">
+									<i class="mdi mdi-playlist-play"></i>
+									<span class="sidebar__nav__text">Playlists</span>
+								</a>
+							</li>
+							<li>
+								<a href="createplaylist.php" class="sidebar__nav__link">
+									<i class="mdi mdi-playlist-plus"></i>
+									<span class="sidebar__nav__text">Create playlist</span>
+								</a>
+							</li>
+							<li>
+								<a href="logout.php" class="sidebar__nav__link">
+									<i class="mdi mdi-logout-variant"></i>
+									<span class="sidebar__nav__text">Log out</span>
+								</a>
+							</li>
+						</ul>
+					</nav>
+				</aside>
+			</div>
 			<?php
 		}
 		else
 		{
 			?>
-			<div>
-				<a class="sign" href="signup.php">Sign Up</a>
-				<a class="log" href="login.php">Login</a>
+			<div id="profile" class="sidebar">
+				<aside class="sidebar">
+					<nav>
+						<ul class="sidebar__nav">
+							<li>
+								<a href="login.php" class="sidebar__nav__link">
+									<i class="mdi mdi-login-variant"></i>
+									<span class="sidebar__nav__text">Log-in</span>
+								</a>
+							</li>
+							<li>
+								<a href="signup.php" class="sidebar__nav__link">
+									<i class="mdi mdi-new-box"></i>
+									<span class="sidebar__nav__text">Sign-up</span>
+								</a>
+							</li>
+							<li>
+								<a class="sidebar__nav__link">
+								</a>
+							</li>
+						</ul>
+					</nav>
+				</aside>
 			</div>
 			<?php
 		}
 	?>
-
+	<main class="main">
 	<center>
 		<form action="search.php" method="post" class="textbox">
-			<input onchange="validateKeyword()" id="searchBox" class="button" type="text" name="stext" placeholder="Search" required>
-			
-		</form>		 		 			 
+			<input onchange="validateKeyword()" id="searchBox" class="button" type="text" name="stext" placeholder="Search" required>			
+		</form>
 	</center>
-	<script type="text/javascript">
-		function validateKeyword(){
-			console.log("is running");
-			var btn = document.getElementById('searchBox');
-			btn.value = btn.value.trim();
-			if(btn.value.length == 1)
-			{
-				alert('Enter some valid keyword!!');
-				btn.value = "";
-			}
-		}
-	</script>
-
-	<h1 align="center" style="color: black;">Have a great day with Music</h1>
-	<table align = 'center' style = 'margin-top:10px; padding-right: 150px' cellpadding="60">
-		<tr>
-			
+	<h1 align="center">Have a great day with Music</h1>
+	<table align = 'center'>
+		<tr>			
 			<td><div class="zoom"><a href="category/romance.php">
 				<img src="photos/caticon/romance.jpg" style="width:400px;height:200px;border:0;" align = 'center'>
 			</a></div></td>
@@ -159,5 +194,18 @@
 				<img src="photos/caticon/english.jpg" style="width:400px;height:200px;border:0;" align = 'center'>
 			</a></div></td>
 		</tr>
-	<table>
+	</table>
+	</main>
+	<script type="text/javascript">
+		function validateKeyword(){
+			console.log("is running");
+			var btn = document.getElementById('searchBox');
+			btn.value = btn.value.trim();
+			if(btn.value.length == 1)
+			{
+				alert('Enter some valid keyword!!');
+				btn.value = "";
+			}
+		}
+	</script>
 </body>

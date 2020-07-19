@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2020 at 05:50 PM
--- Server version: 10.4.13-MariaDB
--- PHP Version: 7.2.31
+-- Generation Time: Jul 19, 2020 at 03:26 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.3.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,10 +32,6 @@ CREATE TABLE `favourites` (
   `favlist` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `favourites`
---
-
 -- --------------------------------------------------------
 
 --
@@ -52,6 +48,9 @@ CREATE TABLE `playlists` (
 --
 -- Dumping data for table `playlists`
 --
+
+INSERT INTO `playlists` (`pid`, `uid`, `pname`, `list`) VALUES
+(27, 46, 'List1', 'RM04_');
 
 -- --------------------------------------------------------
 
@@ -120,6 +119,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
+INSERT INTO `users` (`id`, `name`, `password`, `email`, `verified`) VALUES
+(1, 'sanket', '81dc9bdb52d04dc20036dbd8313ed055', 'sanketvavadiya249@gmail.com', 1);
+
 --
 -- Indexes for dumped tables
 --
@@ -156,13 +158,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `playlists`
 --
 ALTER TABLE `playlists`
-  MODIFY `pid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `pid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
