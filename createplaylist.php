@@ -1,3 +1,9 @@
+<?php
+session_start();
+include('dbcon.php');
+if(!isset($_SESSION['id']))
+	header("location: index.php");
+?>
 <!DOCTYPE HTML>
 <!DOCTYPE html>
 <html>
@@ -7,17 +13,18 @@
 	</style>
 </head>
 <body>
-
-<form action="createplaylist.php" method="post" class="textbox">
-	<input class="button"  type="text" name="pname" required placeholder="Enter name of the playlist" >
-	<input type="submit" name="submit" value="Create">
-</form>
-
+	<?php require('sidebar.php');
+	createplaylist($_SESSION['id']); ?>
+	<main class="main">
+		<form action="createplaylist.php" method="post" class="textbox">
+			<input class="button"  type="text" name="pname" required placeholder="Enter name of the playlist" >
+			<input type="submit" name="submit" value="Create">
+		</form>
+	</main>
 </body>
 </html>
 
 <?php
-session_start();
 if(isset($_POST['submit']))
 {
 	include('dbcon.php');
@@ -30,8 +37,7 @@ if(isset($_POST['submit']))
 	{
 		?>
 		<script>
-			alert('Playlist Name already exist!choose another name!!');
-			
+			alert('Playlist Name already exist!choose another name!!');			
 		</script>
 		<?php
 	}
@@ -51,7 +57,6 @@ if(isset($_POST['submit']))
 				window.history.go(-2);
 			</script>
 			<?php
-
 		}
 		else
 		{
@@ -62,10 +67,5 @@ if(isset($_POST['submit']))
 			<?php
 		}
 	}
-
 }
-
 ?>
-
-
-

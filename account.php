@@ -11,7 +11,7 @@
 	}
 	else
 	{
-		$logged_in=false;
+		header("Location: index.php");
 	}
 ?>
 <!DOCTYPE html>
@@ -34,60 +34,68 @@
 
 		<?php
 			if(isset($_POST['changename'])){
-				?>
-				<link rel="stylesheet" href="assets/css/snackbar.css" />
-				<div id="snackbar">Username changed <?php echo $newname; ?></div>
-				<?php
+				$usernameExist = false;
 				$newname = strtolower($_POST['username']);
-				$qry = "UPDATE `users` SET `name`='$newname' WHERE `id`='$id'";
+				$qry = "SELECT * FROM `users` WHERE `name` = '$newname'";
 				$run = mysqli_query($con, $qry);
-				header("Location: index.php");
+				$row = mysqli_num_rows($run);
+
+				if($row > 0)
+				{
+					$usernameExist = true;
+					?>
+						<script type="text/javascript">
+							alert('Username already Exists!! try different one!');
+						</script>
+					<?php
+				}
+				else
+				{
+					?>
+					<link rel="stylesheet" href="assets/css/snackbar.css" />
+					<div id="snackbar">Username changed <?php echo $newname; ?></div>
+					<?php
+					$qry = "UPDATE `users` SET `name`='$newname' WHERE `id`='$id'";
+					$run = mysqli_query($con, $qry);
+					header("Location: index.php");
+				}
 			}
 		?>
 </head>
 <body>
 	<?php
 		if($logged_in)	{
+			include('sidebar.php');
+			account($data['verified']);
 			?>
-			<div id="profile" class="sidebar">
-				<aside class="sidebar">
-					<nav>
-						<ul class="sidebar__nav">
-							<li>
-								<a href="index.php" class="sidebar__nav__link">
-									<i class="mdi mdi-home"></i>
-									<span class="sidebar__nav__text">Home</span>
-								</a>
-							</li>
-							<li>
-								<a href="favourites.php" class="sidebar__nav__link">
-									<i class="mdi mdi-heart"></i>
-									<span class="sidebar__nav__text">Favourites</span>
-								</a>
-							</li>
-							<li>
-								<a href="userplaylists.php" class="sidebar__nav__link">
-									<i class="mdi mdi-playlist-play"></i>
-									<span class="sidebar__nav__text">Playlists</span>
-								</a>
-							</li>
-							<li>
-								<a href="createplaylist.php" class="sidebar__nav__link">
-									<i class="mdi mdi-playlist-plus"></i>
-									<span class="sidebar__nav__text">Create playlist</span>
-								</a>
-							</li>
-							<li>
-								<a href="logout.php" class="sidebar__nav__link">
-									<i class="mdi mdi-logout-variant"></i>
-									<span class="sidebar__nav__text">Log out</span>
-								</a>
-							</li>
-						</ul>
-					</nav>
-				</aside>
-			</div>
 			<main class="main">
+				<?php
+				if($data['verified']==0)
+				{
+					?>
+					Your email address is not verified yet.<br>
+					<form action="account.php" method="post">
+						<input type="submit" name="verificationmail" value="Send mail">
+					</form>
+					<?php
+						if(isset($_POST['verificationmail'])){
+						require('functions.php');
+						// sending mail
+						$success = verifyMail($data['id'], $data['email'], $data['name']);
+						if($success){
+							?>
+							<script type="text/javascript">alert("Mail sent");</script>
+							<?php
+						}
+						else{
+							?>
+							<script type="text/javascript">alert("Try again");</script>
+							<?php
+						}
+					}
+				}
+				?>
+				<br>
 				Change username: 
 				<form action=""	method="post" name="uname">
 					<input type="text" name="username" id="username" placeholder="Enter new username">

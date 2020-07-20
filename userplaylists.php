@@ -1,3 +1,9 @@
+<?php
+session_start();
+include('dbcon.php');
+if(!isset($_SESSION['id']))
+	header("location: index.php");
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,48 +52,40 @@
 	</style> -->
 </head>
 <body>
-
-<?php
-
-include('dbcon.php');
-session_start();
-$uid=$_SESSION['id'];
-
-$qry="SELECT * FROM `playlists` WHERE `uid`='$uid'";
-$run=mysqli_query($con,$qry);
-$row=mysqli_num_rows($run);
-if($row)
-{
-	?>
-		<h2>Your Playlists</h2><br><br>
-		<a class="manage" style="width: 10%" href="manageplaylist.php">Manage Playlists</a><br>
-	<ol>
-	<?php
-	while($data=mysqli_fetch_assoc($run))
-	{
-		?>
-		<li><a class="mag" style="text-decoration: none;" href="showplaylist.php?pid=<?php echo $data['pid'];?>">
+	<?php require('sidebar.php');
+	userplaylists($_SESSION['id']);?>
+	<main class="main">
 		<?php
-		echo $data['pname'];
-		?></a></li><?php
-		
-	}?>
-	</ol>
-	<?php
-}	
+		$uid=$_SESSION['id'];
+		$qry="SELECT * FROM `playlists` WHERE `uid`='$uid'";
+		$run=mysqli_query($con,$qry);
+		$row=mysqli_num_rows($run);
+		if($row)
+		{
+			?>
+			<h2>Your Playlists</h2><br><br>
+			<a class="manage" style="width: 10%" href="manageplaylist.php">Manage Playlists</a><br>
+			<ol>
+			<?php
+			while($data=mysqli_fetch_assoc($run))
+			{
+				?>
+				<li><a class="mag" style="text-decoration: none;" href="showplaylist.php?pid=<?php echo $data['pid'];?>">
+				<?php
+				echo $data['pname'];
+				?></a></li><?php			
+			}?>
+			</ol>
+			<?php
+		}	
 
-else
-{
-	?>
-	No Playlist Found!!
-	<?php
-}
-
-
-
-
-?>
-
-
+		else
+		{
+			?>
+			No Playlist Found!!
+			<?php
+		}
+		?>
+	</main>
 </body>
 </html>

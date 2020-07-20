@@ -1,6 +1,9 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Bhakti Songs</title>
+	<link rel="stylesheet" href="../assets/css/sidebar.css" />
+	<link rel="stylesheet" href="../assets/css/styles.css" />
 	<!-- <style type="text/css">
 		body{
   			background:url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/dark_wall.png);
@@ -48,25 +51,79 @@
 			font-family: Roboto;
 		}
 	</style> -->
+	<style>
+        #playlist{
+            list-style: none;
+        }
+        #playlist li a{
+            color:black;
+            text-decoration: none;
+        }
+        #playlist .current-song a{
+            color:blue;
+        }
+    </style>
 </head>
-<class>
-<h2>Bhakti Songs</h2>
-</class>
-
-	<table>
-		<?php include("../dbcon.php"); 
-			$sql = "SELECT * FROM `songinfo` WHERE `scode` LIKE 'BH%'";
-			$run = mysqli_query($con, $sql);
-			while($row = mysqli_fetch_array($run)){
-				?>
-				<tr>
-					<td>
-						<a href="../music/songinfo.php?scode=<?php echo $row['scode'];?>&site=Romance.php"><div><?php echo $row['sname'];?></div></a>
-					</td>
-				</tr>
-				<?php
-			}
-		?>
-	</table>
+<body>
+	<?php require('../sidebar.php');
+	session_start();
+	if(isset($_SESSION['id']))
+		category_loggedin($_SESSION['id']);
+	else
+		category_loggedout();
+	?>
+	<main class="main">
+		<h2>Bhakti Songs</h2>
+		<audio src="" controls id="audioPlayer" >
+	        	Sorry, your browser doesn't support html5!
+    		</audio>
+		<ul id="playlist">
+			<?php include("../dbcon.php"); 
+				$foldername = "BH";
+				$sql = "SELECT * FROM `songinfo` WHERE `scode` LIKE '$foldername%'";
+				$run = mysqli_query($con, $sql);
+				while($row = mysqli_fetch_array($run)){
+					?>
+					<li>
+						<?php
+						$songname = $row['sname'];
+	                    $songname = str_replace(" ", "%20", $songname);
+	                    $songname = "../music/".$foldername."/".$songname.".mp3";
+	                    ?>
+						<a href="<?php echo $songname ?>"><div><?php echo $row['sname'];?></div></a>
+					</li>
+					<a href="../music/songinfo.php?scode=<?php echo $row['scode'];?>&site=bhakti.php">More info</a>
+					<?php
+				}
+			?>
+		</ul>
+		<a href="#" onclick="playlist.prevTrack();">Prev Track</a>
+    	<a href="#" onclick="playlist.nextTrack();">Next Track</a>
+    	<a href="#" onclick="playlist.toggleShuffle();">Toggle Shuffle</a>
+    </main>
+	<script src="https://code.jquery.com/jquery-2.2.0.js"></script>
+	<script src="../audioPlayer.js"></script>
+	<script>
+	        
+	/*
+	Default constructor configuration:
+	autoplay: false,
+	shuffle: false,
+	loop: false,
+	playerId: "audioPlayer",
+	playlistId: "playlist",
+	currentClass: "current-song"    
+	        
+	*/
+	        
+		// loads the audio player
+	    var config = {
+	    	autoplay: true, 
+	        loop: true,
+	        shuffle: true
+	    };
+	    var playlist = new AudioPlaylist();        
+	</script>
+</body>
 </html>
 

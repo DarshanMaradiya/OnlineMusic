@@ -1,4 +1,5 @@
 <?php
+	require('sidebar.php');
 	session_start();
 	if(isset($_SESSION['id']))
 	{
@@ -88,75 +89,11 @@
 			$sql="SELECT * FROM `users` WHERE `id`='$id'";
 			$run=mysqli_query($con,$sql);
 			$data=mysqli_fetch_assoc($run);
-			?>
-			<div id="profile" class="sidebar">
-				<aside class="sidebar">
-					<nav>
-						<ul class="sidebar__nav">
-							<li>
-								<a href="account.php" class="sidebar__nav__link">
-									<i class="mdi mdi-account-circle"></i>
-									<span class="sidebar__nav__text"><?php echo $data['name']; ?></span>
-								</a>
-							</li>
-							<li>
-								<a href="favourites.php" class="sidebar__nav__link">
-									<i class="mdi mdi-heart"></i>
-									<span class="sidebar__nav__text">Favourites</span>
-								</a>
-							</li>
-							<li>
-								<a href="userplaylists.php" class="sidebar__nav__link">
-									<i class="mdi mdi-playlist-play"></i>
-									<span class="sidebar__nav__text">Playlists</span>
-								</a>
-							</li>
-							<li>
-								<a href="createplaylist.php" class="sidebar__nav__link">
-									<i class="mdi mdi-playlist-plus"></i>
-									<span class="sidebar__nav__text">Create playlist</span>
-								</a>
-							</li>
-							<li>
-								<a href="logout.php" class="sidebar__nav__link">
-									<i class="mdi mdi-logout-variant"></i>
-									<span class="sidebar__nav__text">Log out</span>
-								</a>
-							</li>
-						</ul>
-					</nav>
-				</aside>
-			</div>
-			<?php
+			indexphp_loggedin($data['name'], $data['verified']);
 		}
 		else
 		{
-			?>
-			<div id="profile" class="sidebar">
-				<aside class="sidebar">
-					<nav>
-						<ul class="sidebar__nav">
-							<li>
-								<a href="login.php" class="sidebar__nav__link">
-									<i class="mdi mdi-login-variant"></i>
-									<span class="sidebar__nav__text">Log-in</span>
-								</a>
-							</li>
-							<li>
-								<a href="signup.php" class="sidebar__nav__link">
-									<i class="mdi mdi-new-box"></i>
-									<span class="sidebar__nav__text">Sign-up</span>
-								</a>
-							</li>
-							<li>
-								<a class="sidebar__nav__link">
-								</a>
-							</li>
-						</ul>
-					</nav>
-				</aside>
-			</div>
-			<?php
+			indexphp_notloggedin();
 		}
 	?>
 	<main class="main">

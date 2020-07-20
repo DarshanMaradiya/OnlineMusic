@@ -1,6 +1,8 @@
 <?php
 session_start();
 include('dbcon.php');
+if(!isset($_SESSION['id']))
+	header("location: index.php");
 ?>
 
 <!DOCTYPE html>
@@ -13,10 +15,13 @@ include('dbcon.php');
 	<link rel="stylesheet" type="text/css" href="css\cssForFavourite.css">
 </head>
 <body>
-	<h2>Favourites</h2>
-	<br><a class="manage" style="width: 20%;" href="managefav.php">Edit playlist</a>
-	<br><br>
-	<?php
+	<?php require('sidebar.php');
+	favourites($_SESSION['id']);?>
+	<main class="main">
+		<h2>Favourites</h2>
+		<br><a class="manage" href="managefav.php">Edit playlist</a>
+		<br>
+		<?php
 		$uid=$_SESSION['id'];
 		$qry = "SELECT `favlist` FROM `favourites` WHERE `uid` = '$uid'";
 		$run = mysqli_query($con, $qry);
@@ -48,14 +53,15 @@ include('dbcon.php');
 			            <?php
 					}
 					?>
-					</ul>
+				</ul>
 					<a href="#" onclick="favourites.prevTrack();">Prev Track</a>
-    				<a href="#" onclick="favourites.nextTrack();">Next Track</a>
-    				<a href="#" onclick="favourites.toggleShuffle();">Toggle Shuffle</a>
+	    			<a href="#" onclick="favourites.nextTrack();">Next Track</a>
+	    			<a href="#" onclick="favourites.toggleShuffle();">Toggle Shuffle</a>
 				<?php
 		}
 		else echo "No favourites";
-	?>
+		?>
+	</main>
     <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
     <script src="audioPlayer.js"></script>
     <script>
