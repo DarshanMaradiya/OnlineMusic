@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 19, 2020 at 03:26 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.3.18
+-- Generation Time: Aug 16, 2020 at 09:31 AM
+-- Server version: 10.4.13-MariaDB
+-- PHP Version: 7.2.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -45,13 +45,6 @@ CREATE TABLE `playlists` (
   `list` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `playlists`
---
-
-INSERT INTO `playlists` (`pid`, `uid`, `pname`, `list`) VALUES
-(27, 46, 'List1', 'RM04_');
-
 -- --------------------------------------------------------
 
 --
@@ -64,42 +57,42 @@ CREATE TABLE `songinfo` (
   `sname` varchar(100) NOT NULL,
   `artist` varchar(100) NOT NULL,
   `duration` time NOT NULL,
-  `rdate` date NOT NULL,
-  `lang` varchar(100) NOT NULL
+  `year` int(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `songinfo`
 --
 
-INSERT INTO `songinfo` (`sid`, `scode`, `sname`, `artist`, `duration`, `rdate`, `lang`) VALUES
-(0, 'BH01', 'Chai Ghata', 'Pamela Jain', '00:00:00', '2020-07-07', 'Hindi'),
-(1, 'BH02', 'Door Nagari', 'Pamela Jain', '00:00:00', '2020-07-07', 'Hindi'),
-(2, 'BH03', 'Kana ne', 'Pamela Jain', '00:00:00', '2020-07-07', 'Hindi'),
-(3, 'BH04', 'Sona Ne Lage Kya Thi Kaat-1', 'Pamela Jain & other', '00:00:00', '2020-07-07', 'Gujarati'),
-(4, 'BH05', 'Sona Ne Lage Kya Thi Kaat-2', 'Pamela Jain & other', '00:00:00', '2020-07-07', 'Gujarati'),
-(5, 'DA01', 'Baby', 'Justin Bieber', '00:00:00', '2020-07-07', 'English'),
-(6, 'DA02', 'Cheeze Badi', 'Udit Narayan', '00:00:00', '2020-07-07', 'Hindi'),
-(7, 'DA03', 'High Heels', 'Meet Bros, Jaz Dhami & Yo Yo Honeysinh', '00:00:00', '2020-07-07', 'Hindi'),
-(8, 'DA04', 'Kukkad', 'Shahid Mallya', '00:00:00', '2020-07-07', 'Punjabi'),
-(9, 'ED01', '24K Magic', 'Bruno Mars', '00:00:00', '2020-07-07', 'English'),
-(10, 'ED02', 'Echame La Culpa', 'Luis Fonsi & Demi Lovato', '00:00:00', '2020-07-07', 'Spanish'),
-(11, 'ED03', 'Proxy', 'Martin Garrix', '00:00:00', '2020-07-07', 'English'),
-(12, 'EN01', 'Common Denominator', 'Justin Bieber', '00:00:00', '2020-07-07', 'English'),
-(13, 'EN02', 'Despacito', 'Luis Fonsi', '00:00:00', '2020-07-07', 'Spanish'),
-(14, 'EN03', 'Get Used To It', 'Justin Bieber', '00:00:00', '2020-07-07', 'English'),
-(15, 'EN04', 'Sorry', 'Justin Bieber', '00:00:00', '2020-07-07', 'English'),
-(16, 'EN05', 'Stuck In The Moment', 'Justin Bieber', '00:00:00', '2020-07-07', 'English'),
-(17, 'PT01', 'Chaar Botal Vodka', 'Yo Yo Honeysinh', '00:00:00', '2020-07-07', 'Hindi'),
-(18, 'PT02', 'G Phaad Ke', 'Divya Kumar', '00:00:00', '2020-07-07', 'Hindi'),
-(19, 'PT03', 'Kar Gayi Chull', 'Badshah, Amaal Mallik, Fazilpuria, Sukri', '00:00:00', '2020-07-07', 'Hindi'),
-(20, 'PT04', 'Tamma Tamma Again', 'Bappi Lahri, Amaal Mallik, Fazilpuria', '00:00:00', '2020-07-07', 'Hindi'),
-(21, 'PT05', 'Vele', 'Shekhar Ravjivani', '00:00:00', '2020-07-07', 'Punjabi'),
-(22, 'RM01', 'Koi Tumsa Nahin', 'Sonu Nigam & Shreya Ghosal', '00:00:00', '2020-07-07', 'Hindi'),
-(23, 'RM02', 'Meherbaan', 'Ash King, Shilpa Rao & Shekhar Ravjiani', '00:00:00', '2020-07-07', 'Hindi'),
-(24, 'RM03', 'Aise Na Mujhe Tum Dekho', 'Ash King', '00:00:00', '2020-07-07', 'Hindi'),
-(25, 'RM04', 'Main Hoon Hero Tera', 'Salman Khan', '00:00:00', '2020-07-07', 'Hindi'),
-(26, 'RM05', 'Panchhi Bole', 'M. M. Keeravani & Palak Muchhal', '00:00:00', '2020-07-07', 'Hindi');
+INSERT INTO `songinfo` (`sid`, `scode`, `sname`, `artist`, `duration`, `year`) VALUES
+(0, 'BH01', 'Chai Ghata', 'NA', '00:05:04', 0),
+(1, 'BH02', 'Door Nagari', 'Pamela Jain', '00:07:06', 0),
+(2, 'BH03', 'Kana Ne', 'Pamela Jain', '00:09:02', 0),
+(3, 'BH04', 'Sona Ne Lage Kya Thi Kaat-1', 'NA', '00:30:04', 0),
+(4, 'BH05', 'Sona Ne Lage Kya Thi Kaat-2', 'NA', '00:30:06', 0),
+(5, 'DA01', 'Baby', 'Justin Bieber', '00:04:13', 2010),
+(6, 'DA02', 'Cheeze Badi', 'Udit Narayan , Neha Kakkar - PagalWorld.cool', '00:03:42', 2017),
+(7, 'DA03', 'High Heels', 'Meet Bros Anjjan, Jaz Dhami & Aditi Singh Sharma', '00:03:32', 2016),
+(8, 'DA04', 'Kukkad', 'Shahid Mallya', '00:04:22', 2012),
+(9, 'ED01', '24K Magic', 'Bruno Mars [FazMusic.Net]', '00:03:46', 2016),
+(10, 'ED02', 'Echame La Culpa', 'Luis Fonsi, Demi Lovato', '00:02:53', 2017),
+(11, 'ED03', 'Proxy', 'Martin Garrix', '00:04:37', 2014),
+(12, 'EN01', 'Common Denominator', 'Justin Bieber', '00:04:08', 2009),
+(13, 'EN02', 'Despacito', 'NA', '00:03:47', 0),
+(14, 'EN03', 'Get Used To It', 'NA', '00:03:58', 0),
+(15, 'EN04', 'Sorry', 'Justin Bieber', '00:03:20', 2015),
+(16, 'EN05', 'Stuck in the Moment', 'NA', '00:03:42', 0),
+(17, 'PT01', 'Chaar Botal Vodka', 'Yo Yo Honey Singh', '00:03:45', 2014),
+(18, 'PT02', 'G Phaad Ke', 'Divya Kumar (DesiTape.Com)', '00:03:13', 2015),
+(19, 'PT03', 'Kar Gayi Chull', 'Badshah, Amaal Mallik, Fazilpuria, Sukriti Kakar, Neha Kakkar', '00:03:07', 2016),
+(20, 'PT04', 'Tamma Tamma Again', 'Bappi Lahiri, Anuradha Paudwal, Badshah , Tanishk Bagchi', '00:03:19', 2017),
+(21, 'PT05', 'Vele', 'Shekhar Ravjiani', '00:03:50', 2012),
+(22, 'RM01', 'Aise Na Mujhe Tum Dekho', 'Ash King', '00:02:42', 2015),
+(23, 'RM02', 'Koi Tumsa Nahin', 'NA', '00:05:32', 0),
+(24, 'RM03', 'Main Hoon Hero Tera', 'Salman Khan [PagalWorld.com]', '00:04:44', 2015),
+(25, 'RM04', 'Meherbaan', 'Ash King, Shilpa Rao & Shekhar Ravjiani', '00:05:07', 2014),
+(26, 'RM05', 'Panchhi Bole', 'M. M. Keeravani, Palak Muchhal (PagalWorld.com)', '00:04:19', 2015),
+(27, 'RM06', 'Sathiya Ye Tune Kya Kiya', 'S. P. Balasubrahmanyam, K. S. Chithra - K. S. Chitra', '00:05:12', 2012);
 
 -- --------------------------------------------------------
 
@@ -114,13 +107,6 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `verified` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `name`, `password`, `email`, `verified`) VALUES
-(1, 'sanket', '81dc9bdb52d04dc20036dbd8313ed055', 'sanketvavadiya249@gmail.com', 1);
 
 --
 -- Indexes for dumped tables
@@ -158,7 +144,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `playlists`
 --
 ALTER TABLE `playlists`
-  MODIFY `pid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `pid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

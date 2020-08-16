@@ -84,8 +84,7 @@ else
 		?><div class="main1"><?php echo "".$data['sname'];?></div><?php
 		?><div class="main2"><?php echo "<br>By ".$data['artist'];?></div><?php
 		?><p><?php echo "<br>Duration : ".$data['duration'];?></p><?php
-		?><p><?php echo "<br>Released Date : ".$data['rdate'];?></p><?php
-		?><p><?php echo "<br>Language : ".$data['lang'];?></p><?php
+		?><p><?php echo "<br>Released Year : ".$data['year'];?></p><?php
 	}
 	else
 	{
