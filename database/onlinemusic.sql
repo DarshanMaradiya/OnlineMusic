@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 17, 2020 at 09:33 AM
+-- Generation Time: Sep 20, 2020 at 12:16 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.31
 
@@ -50,6 +50,14 @@ CREATE TABLE `favourites` (
   `favlist` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `favourites`
+--
+
+INSERT INTO `favourites` (`uid`, `favlist`) VALUES
+(1, 'RM05_PT01_EN02_DA02_'),
+(2, 'RM05_ED01_ED02_ED03_');
+
 -- --------------------------------------------------------
 
 --
@@ -62,6 +70,13 @@ CREATE TABLE `playlists` (
   `pname` varchar(100) NOT NULL,
   `list` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `playlists`
+--
+
+INSERT INTO `playlists` (`pid`, `uid`, `pname`, `list`) VALUES
+(31, 1, 'first', 'RM05_');
 
 -- --------------------------------------------------------
 
@@ -131,7 +146,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `password`, `email`, `verified`) VALUES
-(1, 'darshan', 'e10adc3949ba59abbe56e057f20f883e', 'darshan250999@gmail.com', 1);
+(1, 'darshan', 'e10adc3949ba59abbe56e057f20f883e', 'darshan250999@gmail.com', 1),
+(2, 'ramesh', '0487cc982f7db39c51695026e4bdc692', 'Ramesh@gmail.com', 0);
 
 --
 -- Indexes for dumped tables
@@ -181,7 +197,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `playlists`
 --
 ALTER TABLE `playlists`
-  MODIFY `pid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `pid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `users`
